@@ -59,3 +59,6 @@
     /* background-color: #4BCA81 !important; */
     background-color: #20CC82 !important;
 }
+.show-short-url p{
+    cursor: pointer;
+}

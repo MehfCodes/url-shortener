@@ -7,15 +7,20 @@ export async function postUrl(req, res) {
     if (!url) {
       throw Error('url shortener failed!');
     }
-    res.status(200).send(url);
+    res.send(url);
   } catch (error) {
-    res.status(401).json({ message: error.message });
+    res.json({ message: error.message });
   }
 }
-export async function getUrl(req, res, query) {
+export async function getUrl(req, res, shortUrl) {
   try {
-    res.status(200).json({ what: 'hi' });
+    const url = await urlModel.findOne({ short: shortUrl });
+    if (!url) {
+      throw new Error('url not found!');
+    }
+
+    res.json(url);
   } catch (error) {
-    res.status(401).json({ message: error.message });
+    res.json({ message: error.message });
   }
 }

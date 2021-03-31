@@ -1,8 +1,10 @@
 import { useState } from 'react';
-
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 function Home() {
+  const route = useRouter();
   const [url, setUrl] = useState('');
-  const [shortUrl, setShortUrl] = useState('');
+  const [shortUrl, setShortUrl] = useState(null);
   const [err, setErr] = useState(false);
   const handleUrlChange = (e) => {
     setUrl(e.target.value);
@@ -19,7 +21,7 @@ function Home() {
 
     let data = await res.json();
     if (res.ok === true && res.status === 200) {
-      setShortUrl(`${window.location.host}/${data.short}`);
+      setShortUrl(data.short);
     } else {
       setErr(data.message);
     }
@@ -38,12 +40,24 @@ function Home() {
           Shorten
         </button>
       </form>
-      <div
-        className="show-short-url"
-        style={!err ? { backgroundColor: 'green' } : { backgroundColor: 'red' }}
-      >
-        <p>{!err ? shortUrl : err}</p>
-      </div>
+      {shortUrl && (
+        <div
+          className="show-short-url"
+          style={
+            !err ? { backgroundColor: 'green' } : { backgroundColor: 'red' }
+          }
+        >
+          <p>
+            <p
+              onClick={() => {
+                route.push(`/${shortUrl}`);
+              }}
+            >
+              {!err ? `${window.location.host}/${shortUrl}` : err}
+            </p>
+          </p>
+        </div>
+      )}
     </div>
   );
 }

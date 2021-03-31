@@ -9,7 +9,7 @@ export default async (req, res) => {
     query: { shortUrl },
     method,
   } = req;
-  console.log(method, shortUrl, req.body);
+
   if (method === 'POST' && shortUrl === 'url') {
     await postUrl(req, res);
   }
