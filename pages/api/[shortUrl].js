@@ -9,16 +9,11 @@ export default async (req, res) => {
     query: { shortUrl },
     method,
   } = req;
-  switch (method) {
-    case 'POST':
-      postUrl(req, res);
-      break;
-    case 'GET':
-      getUrl(req, res, shortUrl);
-      break;
-    default:
-      break;
+  console.log(method, shortUrl, req.body);
+  if (method === 'POST' && shortUrl === 'url') {
+    await postUrl(req, res);
   }
-
-  // res.json({ shortUrl, method });
+  if (method === 'GET') {
+    await getUrl(req, res, shortUrl);
+  }
 };

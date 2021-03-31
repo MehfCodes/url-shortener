@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { nanoid } from 'nanoid';
+
 const urlSchema = new mongoose.Schema({
   orginal: {
     type: String,
@@ -7,7 +7,7 @@ const urlSchema = new mongoose.Schema({
   },
   short: {
     type: String,
-    default: nanoid(12),
+    required: true,
   },
 });
 mongoose.models = {};
